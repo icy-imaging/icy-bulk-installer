@@ -62,6 +62,7 @@ REPOS=(
 
     "https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git|icy-3.0.0|"
     "https://github.com/bioimage-io/JDLL.git|main|"
+    "https://gitlab.pasteur.fr/bia/icy/extensions/deep-icy.git|main|"
 )
 
 # -- Colours ------------------------------------------------------------------

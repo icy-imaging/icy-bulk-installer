@@ -156,6 +156,7 @@ rem    Format per line:  URL;BRANCH;OPTIONS   (OPTIONS = NONE when empty)
     echo https://gitlab.pasteur.fr/bia/icy/extensions/active-contours.git;icy-3.0.0;NONE
     echo https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git;icy-3.0.0;NONE
     echo https://github.com/bioimage-io/JDLL.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/deep-icy.git;icy-3.0.0;NONE
 )
 
 rem --- Process every repo via a single FOR loop -------------------------------
