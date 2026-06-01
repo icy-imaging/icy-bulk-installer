@@ -5,11 +5,11 @@ rem ============================================================================
 rem setup_win.bat - Git Repository Manager for ICY (Windows 10+)
 rem ============================================================================
 
-rem --- Configuration ----------------------------------------------------------
 set "INSTALL_DIR=%USERPROFILE%\icy-projects"
 set "ICY_CONFIG=%USERPROFILE%\.icy"
+set "REPO_FILE=%TEMP%\icy_repos_%RANDOM%.txt"
+set "ICY_EXTENSIONS=%USERPROFILE%\.icy\extensions"
 
-rem --- Flags ------------------------------------------------------------------
 set VERBOSE=0
 set FORCE_CLEAN=0
 set UNINSTALL=0
@@ -40,8 +40,6 @@ echo.
 goto :usage
 
 :args_done
-
-rem --- Validate ---------------------------------------------------------------
 if !FORCE_CLEAN! equ 1 if !UNINSTALL! equ 1 (
     echo ERROR: Cannot use both --clean and --uninstall.
     exit /b 1
@@ -51,7 +49,6 @@ if !UNINSTALL! equ 1 if !RUN! equ 1 (
     exit /b 1
 )
 
-rem --- Header -----------------------------------------------------------------
 echo ===========================================================
 echo   ICY Repo Manager - Windows
 echo ===========================================================
@@ -65,7 +62,7 @@ if !RESET! equ 1 (
     echo   Reset ICY Configuration
     echo ===========================================================
     echo   WARNING: This will erase !ICY_CONFIG! including VTK.
-    echo   This action cannot be undone!
+    echo   This action cannot be undone.
     echo.
     set /p "CONFIRM=  Are you sure? (Y/N): "
     if /i "!CONFIRM!"=="Y" (
@@ -117,44 +114,54 @@ if !FORCE_CLEAN! equ 1 (
 rem --- Create install directory -----------------------------------------------
 if not exist "!INSTALL_DIR!" mkdir "!INSTALL_DIR!"
 
-rem --- Process repositories ---------------------------------------------------
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/pom-icy.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/maven/mojo-maven-plugin.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/maven/enforcer-maven-plugin.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/shared/task.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/shared/vtk.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/icy.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/kernel-extension.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/ezplug.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/protocols.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/scale-bar.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/ruler-helper.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/rotation-3d.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/elevation-map.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/orthoviewer.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/blockvars.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/channel-montage.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/montage-2d.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/spot-detection-utilities.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/quickhull.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/connected-components.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/roi-pool.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/roi-tagger.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/spot-detector.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/label-extractor.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/thresholder.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/filter-toolbox.git" "icy-3.0.0" "-Denforcer.skip=true"
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/hk-means.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/track-manager.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/linear-programming.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/spot-tracking.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-time-clip.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/track-motion-profiler.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-roi-gate.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-flow.git" "main" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/mesh-3d-roi.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/fill-holes-in-roi.git" "icy-3.0.0" ""
-call :process_repo "https://gitlab.pasteur.fr/bia/icy/extensions/active-contours.git" "icy-3.0.0" ""
+rem --- Write repo list to temp file -------------------------------------------
+rem    Format per line:  URL;BRANCH;OPTIONS   (OPTIONS = NONE when empty)
+> "!REPO_FILE!" (
+    echo https://gitlab.pasteur.fr/bia/icy/pom-icy.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/maven/mojo-maven-plugin.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/maven/enforcer-maven-plugin.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/shared/task.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/shared/vtk.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/icy.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/kernel-extension.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/ezplug.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/protocols.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/scale-bar.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/ruler-helper.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/rotation-3d.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/elevation-map.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/orthoviewer.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/blockvars.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/channel-montage.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/montage-2d.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-detection-utilities.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/quickhull.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/connected-components.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/roi-pool.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/roi-tagger.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-detector.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/label-extractor.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/thresholder.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/filter-toolbox.git;icy-3.0.0;-Denforcer.skip=true
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/hk-means.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-manager.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/linear-programming.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-tracking.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-time-clip.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-motion-profiler.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-roi-gate.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-flow.git;main;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/mesh-3d-roi.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/fill-holes-in-roi.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/active-contours.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git;icy-3.0.0;NONE
+)
+
+rem --- Process every repo via a single FOR loop -------------------------------
+for /f "usebackq tokens=1,2,* delims=;" %%A in ("!REPO_FILE!") do (
+    call :process_repo "%%A" "%%B" "%%C"
+)
+del "!REPO_FILE!" 2>nul
 
 goto :summary
 
@@ -232,31 +239,27 @@ rem --- Process a single repository --------------------------------------------
 set "P_URL=%~1"
 set "P_BRANCH=%~2"
 set "P_OPTIONS=%~3"
+if /i "!P_OPTIONS!"=="NONE" set "P_OPTIONS="
 
-rem Extract repo name from URL (last path segment without .git)
+rem -- Extract repo name (last segment of URL, minus .git) --
 set "P_NAME="
 for %%i in ("!P_URL:/=" "!") do set "P_NAME=%%~i"
 set "P_NAME=!P_NAME:.git=!"
 set "P_DIR=!INSTALL_DIR!\!P_NAME!"
+set "P_SAVEDIR=!CD!"
 
 echo ===========================================================
 echo   [!P_NAME!]
 echo ===========================================================
-echo   URL    : !P_URL!
-echo   Branch : !P_BRANCH!
-echo   Dir    : !P_DIR!
+echo   URL     : !P_URL!
+echo   Branch  : !P_BRANCH!
+if defined P_OPTIONS echo   Options : !P_OPTIONS!
+echo   Dir     : !P_DIR!
 
-rem --- Clone or update --------------------------------------------------------
+rem --- Clone or pull ----------------------------------------------------------
 if exist "!P_DIR!\.git" (
     echo   Repository already exists, pulling updates...
-    pushd "!P_DIR!" 2>nul
-    if !ERRORLEVEL! neq 0 (
-        echo   [FAIL] Cannot enter directory
-        set /a FAIL_COUNT+=1
-        set "FAILED_NAMES=!FAILED_NAMES! !P_NAME!"
-        echo.
-        goto :eof
-    )
+    cd /d "!P_DIR!"
     if !VERBOSE! equ 1 (
         git fetch --all
         git pull
@@ -266,7 +269,7 @@ if exist "!P_DIR!\.git" (
     )
     echo   [OK] Updated
 ) else (
-    echo   Cloning repository...
+    echo   Cloning...
     if !VERBOSE! equ 1 (
         git clone "!P_URL!" "!P_DIR!"
     ) else (
@@ -276,21 +279,15 @@ if exist "!P_DIR!\.git" (
         echo   [FAIL] Clone failed
         set /a FAIL_COUNT+=1
         set "FAILED_NAMES=!FAILED_NAMES! !P_NAME!"
+        cd /d "!P_SAVEDIR!"
         echo.
-        goto :eof
+        exit /b 1
     )
-    echo   [OK] Cloned successfully
-    pushd "!P_DIR!" 2>nul
-    if !ERRORLEVEL! neq 0 (
-        echo   [FAIL] Cannot enter directory
-        set /a FAIL_COUNT+=1
-        set "FAILED_NAMES=!FAILED_NAMES! !P_NAME!"
-        echo.
-        goto :eof
-    )
+    echo   [OK] Cloned
+    cd /d "!P_DIR!"
 )
 
-rem --- Branch checkout --------------------------------------------------------
+rem --- Branch -----------------------------------------------------------------
 if not "!P_BRANCH!"=="" (
     if !VERBOSE! equ 1 (
         git checkout "!P_BRANCH!" 2>nul || git checkout -b "!P_BRANCH!" "origin/!P_BRANCH!" 2>nul
@@ -318,9 +315,9 @@ if !ERRORLEVEL! equ 0 (
     set "FAILED_NAMES=!FAILED_NAMES! !P_NAME!"
 )
 
-popd
+cd /d "!P_SAVEDIR!"
 echo.
-goto :eof
+exit /b 0
 
 rem --- Summary ----------------------------------------------------------------
 :summary
@@ -344,12 +341,12 @@ if !FAIL_COUNT! equ 0 (
 )
 echo.
 
-rem --- Run ICY ----------------------------------------------------------------
 :run_icy
 if !RUN! equ 1 (
     echo ===========================================================
     echo   Running ICY
     echo ===========================================================
+    if not exist "!ICY_EXTENSIONS!" mkdir "!ICY_EXTENSIONS!"
     start "ICY" java --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
     echo   [OK] ICY launched. Have a nice day!
 )

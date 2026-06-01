@@ -15,6 +15,7 @@
 # CONFIGURATION
 # -----------------------------------------------------------------------------
 INSTALL_DIR="$HOME/icy-projects"
+EXTENSIONS_DIR="$HOME/.icy/extensions"
 
 # Format: "REPO_URL|BRANCH|MAVEN_OPTIONS"
 #   BRANCH        – optional; leave empty to stay on the repo's default branch
@@ -58,6 +59,8 @@ REPOS=(
     "https://gitlab.pasteur.fr/bia/icy/extensions/mesh-3d-roi.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/fill-holes-in-roi.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/active-contours.git|icy-3.0.0|"
+
+    "https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git|icy-3.0.0|"
 )
 
 # -- Colours ------------------------------------------------------------------
@@ -401,6 +404,7 @@ ok "All projects were built successfully!"
 fi
 
 if $RUN; then
+    mkdir -p "$EXTENSIONS_DIR" || { err "Cannot create directory: $EXTENSIONS_DIR"; exit 1; }
     echo
     java --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/build/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
         err "Something went wrong while ICY was running."

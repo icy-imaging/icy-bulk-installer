@@ -46,7 +46,7 @@ In terminal for Macos and Linux, in CMD for Windows:
 In terminal:
 
 ```shell
-sh ./unix_setup.sh --run
+./unix_setup.sh --run
 ```
 
 ### Windows
