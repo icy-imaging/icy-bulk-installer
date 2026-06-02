@@ -94,3 +94,16 @@ Usage (in CMD / Powershell): .\win_setup.bat [OPTIONS]
 -  -r, --reset       Reset ICY's configuration directory (located at: %USERPROFILE%/.icy)
 -  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
 -  -h, --help        Show this help message
+
+## How to update the script
+
+Inside the 'icy-bulk-installer' folder, in the Terminal or CMD / Powershell:
+```shell
+git fetch
+```
+
+Then
+
+```shell
+git pull
+```
