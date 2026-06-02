@@ -3,7 +3,7 @@
 ## Requirements
 
 1. Java 17+ (25 recommended)
-2. Maven
+2. Maven 3.9+
 3. Git
 
 ## Preparation
@@ -28,22 +28,22 @@
 2. Download Maven binary package: https://maven.apache.org/download.cgi#CurrentMaven
 3. Extract the tar.gz or zip previously downloaded
 4. Copy the extracted folder (should be named like 'apache-maven-X.X.X') in your C:\Program Files\
-5. Configure your PATH variable and set MAVEN_HOME and M2_HOME using this guide: https://stackoverflow.com/a/48411269
+5. Configure your PATH variable using this guide: https://stackoverflow.com/a/48411269 (MAVEN_HOME and M2_HOME are optional)
 6. Install Git: https://git-scm.com/install/windows
 
 ## Testing requirements
 
-In terminal for Macos and Linux, in CMD for Windows:
+In Terminal for Macos and Linux, in CMD / Powershell for Windows:
 
-1. Test Java: `java -version`
-2. Test Maven: `mvn -version`
+1. Test Java: `java -version` (you must be on Java 17+ to run the script properly)
+2. Test Maven: `mvn -version` (if you are not on Maven 3.9+, the script will not work)
 3. Test Git: `git --version`
 
 ## Running script
 
 ### Unix (MacOS & Linux)
 
-In terminal:
+In Terminal, from the same folder as the scripts:
 
 ```shell
 ./unix_setup.sh --run
@@ -51,8 +51,32 @@ In terminal:
 
 ### Windows
 
-In CMD:
+In CMD / Powershell from the same folder as the scripts:
 
 ```
 .\win_setup.bat --run
 ```
+
+## How to use this script
+
+### Unix (MacOS & Linux)
+
+Usage (in Terminal): ./unix_setup.sh [OPTIONS]
+
+-  -v, --verbose     Show logs from Git and Maven
+-  -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
+-  -u, --uninstall   Remove the install directory (cannot be used with --clean)
+-  -r, --reset       Reset ICY's configuration directory (located at: $HOME/.icy)
+-  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
+-  -h, --help        Show this help message
+
+### Windows
+
+Usage (in CMD / Powershell): .\win_setup.bat [OPTIONS]
+
+-  -v, --verbose     Show logs from Git and Maven
+-  -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
+-  -u, --uninstall   Remove the install directory (cannot be used with --clean)
+-  -r, --reset       Reset ICY's configuration directory (located at: %USERPROFILE%/.icy)
+-  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
+-  -h, --help        Show this help message

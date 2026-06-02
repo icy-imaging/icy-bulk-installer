@@ -47,8 +47,6 @@ REPOS=(
     "https://gitlab.pasteur.fr/bia/icy/extensions/spot-detector.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/label-extractor.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/thresholder.git|icy-3.0.0|"
-    "https://gitlab.pasteur.fr/bia/icy/extensions/filter-toolbox.git|icy-3.0.0|-Denforcer.skip=true"
-    "https://gitlab.pasteur.fr/bia/icy/extensions/hk-means.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/track-manager.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/linear-programming.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/spot-tracking.git|icy-3.0.0|"
@@ -58,7 +56,6 @@ REPOS=(
     "https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-flow.git|main|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/mesh-3d-roi.git|icy-3.0.0|"
     "https://gitlab.pasteur.fr/bia/icy/extensions/fill-holes-in-roi.git|icy-3.0.0|"
-    "https://gitlab.pasteur.fr/bia/icy/extensions/active-contours.git|icy-3.0.0|"
 
     "https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git|icy-3.0.0|"
     "https://github.com/bioimage-io/JDLL.git|main|"
