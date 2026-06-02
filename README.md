@@ -41,6 +41,20 @@ In Terminal for Macos and Linux, in CMD / Powershell for Windows:
 
 ## Running script
 
+Clone the repository:
+```shell
+git clone https://gitlab.pasteur.fr/bia/icy/icy-bulk-installer.git
+```
+
+This command will create a folder named 'icy-bulk-installer' and download the content of this repository inside this newly created folder.
+
+Then move in this folder:
+```shell
+cd icy-bulk-installer
+```
+
+Then follow the steps below according to your operating system.
+
 ### Unix (MacOS & Linux)
 
 In Terminal, from the same folder as the scripts:
