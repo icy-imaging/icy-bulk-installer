@@ -223,14 +223,14 @@ process_artifact() {
     info "ArtifactId    : $artifactId"
     info "Version       : $version"
     info "Packaging     : $packaging"
-    info "Classifier    : $classidier"
+    info "Classifier    : $classifier"
     info "Repository    : $repository"
 
     if [ -n "$classifier" ]; then
-        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -Dclassifier="$classifier" -DremoteRepositories="$remote" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
+        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -Dclassifier="$classifier" -DremoteRepositories="$repository" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
         pid=$!
     else
-        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -DremoteRepositories="$remote" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
+        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -DremoteRepositories="$repository" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
         pid=$!
     fi
     wheel $pid "Downloading artifact"
@@ -410,7 +410,7 @@ if ! $RUN_ONLY; then
     failed_list=()
 
     for entry in "${ARTIFACTS[@]}"; do
-        IFS='|' read -r groupId artifactId version packaging classidier repository <<< "$entry"
+        IFS='|' read -r groupId artifactId version packaging classifier repository <<< "$entry"
         if process_artifact "$groupId" "$artifactId" "$version" "$packaging" "$classifier" "$repository"; then
             success_list+=("mvn: $groupId:$artifactId $classifier")
         else
