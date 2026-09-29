@@ -269,7 +269,8 @@ echo   Packaging    : !A_PACKAGING!
 echo   Classifier   : !A_CLASSIFIER!
 echo   Repository   : !A_REPOSITORY!
 
-mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
+if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
+else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!"
 
 rem --- Process a single repository --------------------------------------------
 :process_repo

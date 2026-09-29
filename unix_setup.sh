@@ -226,8 +226,12 @@ process_artifact() {
     info "Classifier    : $classidier"
     info "Repository    : $repository"
 
-    mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -Dclassifier="$classifier" -DremoteRepositories="$remote" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
-    pid=$!
+    if $classifier; then
+        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -Dclassifier="$classifier" -DremoteRepositories="$remote" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
+        pid=$!
+    else
+        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -DremoteRepositories="$remote" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
+        pid=$!
     wheel $pid "Downloading artifact"
     ok "Downloaded successfully"
 
