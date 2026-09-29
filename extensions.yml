@@ -1,0 +1,58 @@
+- {artifactId: kernel, distribution: '', groupId: fr.icy.extension, enabled: true,
+  version: 1.0.0-a.8-SNAPSHOT}
+- {artifactId: ezplug, version: 4.0.0-a.8-SNAPSHOT, enabled: true, groupId: fr.icy.extension,
+  distribution: ''}
+- {artifactId: protocols, version: 4.0.0-a.8-SNAPSHOT, enabled: true, groupId: fr.icy.extension,
+  distribution: ''}
+- {version: 4.0.0-a.8-SNAPSHOT, artifactId: scale-bar, distribution: '', groupId: fr.icy.extension,
+  enabled: true}
+- {version: 2.0.0-a.8-SNAPSHOT, artifactId: ruler-helper, distribution: '', groupId: fr.icy.extension,
+  enabled: true}
+- {artifactId: rotation-3d, version: 2.0.0-a.8-SNAPSHOT, enabled: true, groupId: fr.icy.extension,
+  distribution: ''}
+- {enabled: true, version: 3.0.0-a.8-SNAPSHOT, artifactId: elevation-map, distribution: '',
+  groupId: fr.icy.extension}
+- {artifactId: orthoviewer, distribution: '', groupId: fr.icy.extension, enabled: true,
+  version: 3.0.0-a.8-SNAPSHOT}
+- {distribution: '', groupId: fr.icy.extension, enabled: true, version: 1.0.0-a.8-SNAPSHOT,
+  artifactId: blockvars}
+- {distribution: '', artifactId: channel-montage, version: 3.0.0-a.8-SNAPSHOT, enabled: true,
+  groupId: fr.icy.extension}
+- {artifactId: montage-2d, distribution: '', groupId: fr.icy.extension, enabled: true,
+  version: 1.0.0-a.8-SNAPSHOT}
+- {enabled: true, groupId: fr.icy.extension, distribution: '', artifactId: spot-detection-utilities,
+  version: 2.0.0-a.8-SNAPSHOT}
+- {artifactId: quickhull, distribution: '', groupId: fr.icy.extension, enabled: true,
+  version: 2.0.0-a.8-SNAPSHOT}
+- {groupId: fr.icy.extension, enabled: true, version: 5.0.0-a.8-SNAPSHOT, artifactId: connected-components,
+  distribution: ''}
+- {groupId: fr.icy.extension, distribution: '', artifactId: roi-pool, version: 2.0.0-a.8-SNAPSHOT,
+  enabled: true}
+- {groupId: fr.icy.extension, distribution: '', artifactId: roi-tagger, version: 2.0.0-a.8-SNAPSHOT,
+  enabled: true}
+- {version: 2.0.0-a.8-SNAPSHOT, artifactId: spot-detector, distribution: '', groupId: fr.icy.extension,
+  enabled: true}
+- {enabled: true, version: 2.0.0-a.8-SNAPSHOT, artifactId: label-extractor, distribution: '',
+  groupId: fr.icy.extension}
+- {distribution: '', groupId: fr.icy.extension, enabled: true, version: 4.0.0-a.8-SNAPSHOT,
+  artifactId: thresholder}
+- {enabled: true, version: 2.0.0-a.8-SNAPSHOT, artifactId: track-manager, distribution: '',
+  groupId: fr.icy.extension}
+- {distribution: '', artifactId: linear-programming, version: 2.0.0-a.8-SNAPSHOT,
+  enabled: true, groupId: fr.icy.extension}
+- {artifactId: spot-tracking, version: 4.0.0-a.8-SNAPSHOT, enabled: true, groupId: fr.icy.extension,
+  distribution: ''}
+- {distribution: '', artifactId: track-processor-time-clip, version: 2.0.0-a.8-SNAPSHOT,
+  enabled: true, groupId: fr.icy.extension}
+- {version: 5.0.0-a.8-SNAPSHOT, artifactId: track-motion-profiler, distribution: '',
+  groupId: fr.icy.extension, enabled: true}
+- {enabled: true, version: 2.0.0-a.8-SNAPSHOT, artifactId: track-processor-roi-gate,
+  distribution: '', groupId: fr.icy.extension}
+- {distribution: '', artifactId: track-processor-color, version: 2.0.0-a.8-SNAPSHOT,
+  enabled: true, groupId: fr.icy.extension}
+- {artifactId: track-processor-flow, version: 2.0.0-a.8-SNAPSHOT, enabled: true, groupId: fr.icy.extension,
+  distribution: ''}
+- {groupId: fr.icy.extension, enabled: true, version: 2.0.0-a.8-SNAPSHOT, artifactId: mesh-3d-roi,
+  distribution: ''}
+- {enabled: true, groupId: fr.icy.extension, distribution: '', artifactId: fill-holes-in-roi,
+  version: 2.0.0-a.8-SNAPSHOT}

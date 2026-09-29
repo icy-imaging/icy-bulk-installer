@@ -2,12 +2,13 @@
 setlocal enabledelayedexpansion
 
 rem ============================================================================
-rem setup_win.bat - Git Repository Manager for ICY (Windows 10+)
+rem setup_win.bat - Installer for ICY (Windows 10+) v1.0.0 alpha 8 (SNAPSHOT)
 rem ============================================================================
 
 set "INSTALL_DIR=%USERPROFILE%\icy-projects"
 set "ICY_CONFIG=%USERPROFILE%\.icy"
 set "REPO_FILE=%TEMP%\icy_repos_%RANDOM%.txt"
+set "ARTIFACTS_FILE=%TEMP%\icy_artifacts_%RANDOM%.txt"
 set "ICY_EXTENSIONS=%USERPROFILE%\.icy\extensions"
 
 set VERBOSE=0
@@ -50,7 +51,7 @@ if !UNINSTALL! equ 1 if !RUN! equ 1 (
 )
 
 echo ===========================================================
-echo   ICY Repo Manager - Windows
+echo   ICY Repo Manager - Windows v1.0.0 alpha 8 (SNAPSHOT)
 echo ===========================================================
 echo   Install dir : !INSTALL_DIR!
 echo   ICY config  : !ICY_CONFIG!
@@ -114,46 +115,61 @@ if !FORCE_CLEAN! equ 1 (
 rem --- Create install directory -----------------------------------------------
 if not exist "!INSTALL_DIR!" mkdir "!INSTALL_DIR!"
 
+rem --- Write artifact list to temp file -------------------------------------------
+rem    Format per line:  GROUPID;ARTIFACTID;VERSION;PACKAGING;CLASSIFIER;REPOSITORY   (CLASSIFIER = NONE when empty)
+> "!ARTIFACTS_FILE!" (
+    echo fr.icy;pom-icy;3.0.0-a.8-SNAPSHOT;pom;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.maven;mojo-maven-plugin;1.0.0-a.8-SNAPSHOT;maven-plugin;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.maven;enforcer-maven-plugin;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;logging;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;task;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-linux-amd64;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-windows-amd64;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-macos-arm64;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-macos-amd64;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy;icy;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;kernel;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;ezplug;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;protocols;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;scale-bar;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;ruler-helper;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;rotation-3d;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;elevation-map;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;orthoviewer;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;blockvars;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;channel-montage;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;montage-2d;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;spot-detection-utilities;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;quickhull;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;connected-components;5.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;roi-pool;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;roi-tagger;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;spot-detector;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;label-extractor;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;thresholder;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-manager;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;linear-programming;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;spot-tracking;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-processor-time-clip;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-motion-profiler;5.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-processor-roi-gate;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-processor-color;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;track-processor-flow;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;mesh-3d-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;fill-holes-in-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+)
+
+rem --- Process every artifact via a single FOR loop -------------------------------
+for /f "usebackq tokens=1,2,3,4,5,6 delims=;" %%A in ("!ARTIFACTS_FILE!") do (
+    call :process_artifact "%%A" "%%B" "%%C" "%%D" "%%E" "%%F"
+)
+del "!ARTIFACTS_FILE!" 2>nul
+
 rem --- Write repo list to temp file -------------------------------------------
 rem    Format per line:  URL;BRANCH;OPTIONS   (OPTIONS = NONE when empty)
 > "!REPO_FILE!" (
-    echo https://gitlab.pasteur.fr/bia/icy/pom-icy.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/maven/mojo-maven-plugin.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/maven/enforcer-maven-plugin.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/shared/task.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/shared/vtk.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/icy.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/kernel-extension.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/ezplug.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/protocols.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/scale-bar.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/ruler-helper.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/rotation-3d.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/elevation-map.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/orthoviewer.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/blockvars.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/channel-montage.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/montage-2d.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-detection-utilities.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/quickhull.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/connected-components.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/roi-pool.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/roi-tagger.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-detector.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/label-extractor.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/thresholder.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-manager.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/linear-programming.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/spot-tracking.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-time-clip.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-motion-profiler.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-roi-gate.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/track-processor-flow.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/mesh-3d-roi.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/fill-holes-in-roi.git;icy-3.0.0;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/imglib2.git;icy-3.0.0;NONE
-    echo https://github.com/bioimage-io/JDLL.git;main;NONE
-    echo https://gitlab.pasteur.fr/bia/icy/extensions/deep-icy.git;icy-3.0.0;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/icy.git;dev-3.0.0-a.8;NONE
 )
 
 rem --- Process every repo via a single FOR loop -------------------------------
@@ -233,6 +249,28 @@ if !REQ_FAIL! equ 1 (
 )
 exit /b 0
 
+rem --- Process a single artifact ----------------------------------------------
+:process_artifact
+set "A_GROUPID=%~1"
+set "A_ARTIFACTID=%~2"
+set "A_VERSION=%~3"
+set "A_PACKAGING=%~4"
+set "A_CLASSIFIER=%~5"
+set "A_REPOSITORY=%~6"
+if /i "!A_CLASSIFIER!"=="NONE" set "A_CLASSIFIER="
+
+echo ===========================================================
+echo   [!P_NAME!]
+echo ===========================================================
+echo   GroupId      : !A_GROUPID!
+echo   ArtifactId   : !A_ARTIFACTID!
+echo   Version      : !A_VERSION!
+echo   Packaging    : !A_PACKAGING!
+echo   Classifier   : !A_CLASSIFIER!
+echo   Repository   : !A_REPOSITORY!
+
+mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
+
 rem --- Process a single repository --------------------------------------------
 :process_repo
 set "P_URL=%~1"
@@ -301,9 +339,9 @@ if not "!P_BRANCH!"=="" (
 rem --- Maven build ------------------------------------------------------------
 echo   Building...
 if !VERBOSE! equ 1 (
-    call mvn install -Dmaven.javadoc.skip=true -Dmaven.test.skip=true !P_OPTIONS!
+    call mvn install -Dmaven.javadoc.skip=true -Dmaven.test.skip=true -Denforcer.skip=true !P_OPTIONS!
 ) else (
-    call mvn install -Dmaven.javadoc.skip=true -Dmaven.test.skip=true !P_OPTIONS! >nul 2>&1
+    call mvn install -Dmaven.javadoc.skip=true -Dmaven.test.skip=true -Denforcer.skip=true !P_OPTIONS! >nul 2>&1
 )
 if !ERRORLEVEL! equ 0 (
     echo   [OK] Build succeeded
@@ -345,7 +383,8 @@ if !RUN! equ 1 (
     echo ===========================================================
     echo   Running ICY
     echo ===========================================================
-    if not exist "!ICY_EXTENSIONS!" mkdir "!ICY_EXTENSIONS!"
+    if not exist "!ICY_CONFIG!" mkdir "!ICY_CONFIG!"
+    xcopy ".\extensions.yml" "!ICY_CONFIG!\extensions.yml"
     start "ICY" java --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
     echo   [OK] ICY launched. Have a nice day!
 )
