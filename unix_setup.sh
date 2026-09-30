@@ -260,24 +260,13 @@ process_repo() {
         if $VERBOSE; then
             git fetch --all && git pull
         else
-            need_updated=$(git fetch --all) &
+            git fetch --all >> /dev/null 2>&1 || { warn "Cannot fetch update"; return 1; } &
             pid=$!
             wheel $pid "Searching for updates"
-            if [[ $need_update ]]; then
-                warn "Update available"
-                #git fetch --all >> /dev/null 2>&1 || { warn "Cannot fetch repository"; return 1; } &
-                #pid=$!
-                #wheel $pid "Fetching repository…"
-                #ok "Fetched successfully"
-                git pull >> /dev/null 2>&1 || { warn "Cannot pull from remote"; return 1; } &
-                pid=$!
-                wheel "Downloading update…"
-                ok "Updated successfully"
-                updated=true
-            else
-                ok "No update available"
-                updated=false
-            fi
+            git pull >> /dev/null 2>&1 || { warn "Cannot pull from remote"; return 1; } &
+            pid=$!
+            wheel "Downloading update…"
+            ok "Updated successfully"
         fi
     else
         if $VERBOSE; then
@@ -299,12 +288,6 @@ process_repo() {
         pid=$!
         wheel $pid "Fetching repository…"
         ok "Fetched successfully"
-        updated=true
-    fi
-
-    if ! $updated; then
-        ok "Skipped compilation"
-        return 0
     fi
 
     # -- Branch checkout ------------------------------------------------------
@@ -451,7 +434,7 @@ if $RUN; then
     mkdir -p "$ICY_DIR" || { err "Cannot create directory: $ICY_DIR"; exit 1; }
     cp "./extensions.yml" "$ICY_DIR/extensions.yml"
     echo
-    java --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/build/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
+    java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/build/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
         err "Something went wrong while ICY was running."
         exit 1
     } &

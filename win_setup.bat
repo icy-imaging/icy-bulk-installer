@@ -386,7 +386,7 @@ if !RUN! equ 1 (
     echo ===========================================================
     if not exist "!ICY_CONFIG!" mkdir "!ICY_CONFIG!"
     xcopy ".\extensions.yml" "!ICY_CONFIG!\extensions.yml"
-    start "ICY" java --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
+    start "ICY" java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
     echo   [OK] ICY launched. Have a nice day!
 )
 
