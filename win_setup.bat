@@ -133,7 +133,7 @@ rem    Format per line:  GROUPID;ARTIFACTID;VERSION;PACKAGING;CLASSIFIER;REPOSIT
     echo fr.icy.extension;ezplug;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;protocols;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;scale-bar;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;ruler-helper;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;ruler-helper;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;rotation-3d;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;elevation-map;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;orthoviewer;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
