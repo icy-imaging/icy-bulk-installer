@@ -260,7 +260,7 @@ set "A_REPOSITORY=%~6"
 if /i "!A_CLASSIFIER!"=="NONE" set "A_CLASSIFIER="
 
 echo ===========================================================
-echo   [!P_NAME!]
+echo   [!A_ARTIFACTID!]
 echo ===========================================================
 echo   GroupId      : !A_GROUPID!
 echo   ArtifactId   : !A_ARTIFACTID!
@@ -269,9 +269,13 @@ echo   Packaging    : !A_PACKAGING!
 echo   Classifier   : !A_CLASSIFIER!
 echo   Repository   : !A_REPOSITORY!
 
-if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
-else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!"
-
+if !VERBOSE! equ 1 (
+    if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
+    else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!"
+) else (
+    if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
+    else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
+)
 rem --- Process a single repository --------------------------------------------
 :process_repo
 set "P_URL=%~1"
