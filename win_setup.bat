@@ -270,12 +270,21 @@ echo   Classifier   : !A_CLASSIFIER!
 echo   Repository   : !A_REPOSITORY!
 
 if !VERBOSE! equ 1 (
-    if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
-    else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!"
+    if /i "!A_CLASSIFIER!"=="" (
+        mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!"
+    ) else (
+        mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!"
+    )
 ) else (
-    if /i "!A_CLASSIFIER!"=="" mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
-    else mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
+    if /i "!A_CLASSIFIER!"=="" (
+        mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
+    ) else (
+        mvn dependency:get -DgroupId="!A_GROUPID!" -DartifactId="!A_ARTIFACTID!" -Dversion="!A_VERSION!" -Dpackaging="!A_PACKAGING!" -Dclassifier="!A_CLASSIFIER!" -DremoteRepositories="!A_REPOSITORY!" >nul 2>&1
+    )
 )
+echo.
+exit /b 0
+
 rem --- Process a single repository --------------------------------------------
 :process_repo
 set "P_URL=%~1"
