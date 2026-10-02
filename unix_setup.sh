@@ -21,7 +21,7 @@ ICY_DIR="$HOME/.icy/"
 #   BRANCH        – optional; leave empty to stay on the repo's default branch
 #   MAVEN_OPTIONS – optional
 REPOS=(
-    "https://gitlab.pasteur.fr/bia/icy/icy.git|dev-3.0.0-a.8|"
+    "https://gitlab.pasteur.fr/bia/icy/icy.git|dev|"
 )
 
 # Format: "GROUP_ID|ARTIFACT_ID|VERSION|PACKAGING|CLASSIFIER|REPOSITORY"

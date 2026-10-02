@@ -169,7 +169,7 @@ del "!ARTIFACTS_FILE!" 2>nul
 rem --- Write repo list to temp file -------------------------------------------
 rem    Format per line:  URL;BRANCH;OPTIONS   (OPTIONS = NONE when empty)
 > "!REPO_FILE!" (
-    echo https://gitlab.pasteur.fr/bia/icy/icy.git;dev-3.0.0-a.8;NONE
+    echo https://gitlab.pasteur.fr/bia/icy/icy.git;dev;NONE
 )
 
 rem --- Process every repo via a single FOR loop -------------------------------
