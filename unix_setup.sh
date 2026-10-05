@@ -72,6 +72,9 @@ ARTIFACTS=(
     "fr.icy.extension|track-processor-flow|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
     "fr.icy.extension|mesh-3d-roi|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
     "fr.icy.extension|fill-holes-in-roi|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
+
+    "fr.icy.extension|imglib2|8.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
+    "fr.icy.extension|deep-icy|0.0.0-b.0-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
 )
 
 # -- Colours ------------------------------------------------------------------
