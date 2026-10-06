@@ -71,6 +71,11 @@ In CMD / Powershell from the same folder as the scripts:
 .\win_setup.bat --run
 ```
 
+> Note that the script will ask you permission to copy the `extensions.yml` present in this repository.
+> If this step does not work, you can just copy the `extensions.yml` file into the `.icy` folder located in your personal folder:
+> - `C:\Users\<your-username>\.icy\` in Windows
+> - `~/.icy/` in macOS or Linux
+
 ## How to use this script
 
 ### Unix (MacOS & Linux)
