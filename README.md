@@ -12,45 +12,99 @@
 
 In Terminal for Macos and Linux, in CMD / Powershell for Windows:
 
-1. Test Java: `java -version` (you must be on Java 17+ to run the script properly)
-2. Test Maven: `mvn -version` (if you are not on Maven 3.10+, the script will not work)
-3. Test Git: `git --version` (any git version will work)
+1. Test Java: (you must be on Java 17+ to run the script properly)
+```shell
+java -version
+``` 
+2. Test Maven: (if you are not on Maven 3.10+, the script will not work)
+```shell
+mvn -version
+``` 
+3. Test Git: (any git version will work)
+```shell
+git --version
+``` 
 
 ### MacOS (Apple Silicon)
 
 1. Install Homebrew: https://brew.sh
-    - run this command in your terminal: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+    - run this command in your terminal: 
+    ```shell
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
     - It will ask you to download and install `Xcode Command Line Tools` if it is not already the case, accept it
-2. Install Java: `brew install --cask zulu@25` (you can install Java 17 with 'zulu@17' or Java 21 with 'zulu@21')
-3. Install Maven: `brew install maven`
-4. Install Git: `brew install git`
+2. Install Java: (you can install Java 17 with `zulu@17` or Java 21 with `zulu@21`)
+```shell
+brew install --cask zulu@25
+```
+3. Install Maven:
+```shell
+brew install maven
+```
+4. Install Git:
+```shell
+brew install git
+```
 
 ### MacOS (Intel)
 
-Unfortunately, you will not be able to use Homebrew on an Intel Mac anymore, but you can use [MacPorts](https://www.macports.org) instead.
+>Unfortunately, you will not be able to use Homebrew on an Intel Mac anymore, but you can use [MacPorts](https://www.macports.org) instead.
 
 1. Install MacPorts: https://guide.macports.org/#installing
     - Install Xcode from the Apple developer website: https://developer.apple.com/download/all/ (you will need an Apple account)
     - Install Macports by downloading, then running the correct `.pkg` file based on your macOS version: https://guide.macports.org/#installing.macports.binary
-2. Install Java: `sudo port install openjdk25-zulu` (you can also install the 17 or the 21 version of the JDK)
-3. Install Maven: `sudo port install maven3`
-4. Install Git: `sudo port install git`
+2. Install Java: (you can also install Java 17 with `openjdk17-zulu` or Java 21 with `openjdk21-zulu`)
+```shell
+sudo port install openjdk25-zulu
+```
+3. Install Maven:
+```shell
+sudo port install maven3
+```
+4. Install Git:
+```shell
+sudo port install git
+```
 
 ### Linux
 
 #### Debian based Linux (Ubuntu)
 
-1. Update your package manager: `sudo apt update`
-    - It is also recommended to upgrade the already installed packages: `sudo apt upgrade`
-2. Install Java: `sudo apt install openjdk-25-jdk` (you can install Java 17 using 'openjdk-17-jdk' or Java 21 using 'openjdk-21-jdk')
-3. Install Maven: `sudo apt install maven`
-4. Install Git: `sudo apt install git`
+1. Update your package manager: 
+    ```shell
+    sudo apt update
+    ```
+    >It is also recommended to upgrade the already installed packages: 
+    >```shell
+    >sudo apt upgrade
+    >```
+2. Install Java: (you can install Java 17 using `openjdk-17-jdk` or Java 21 using `openjdk-21-jdk`)
+```shell
+sudo apt install openjdk-25-jdk
+```
+3. Install Maven:
+```shell
+sudo apt install maven
+```
+4. Install Git:
+```shell
+sudo apt install git
+```
 
 #### Arch based Linux (ArchLinux)
 
-1. Install Java: `sudo pacman -S jdk25-openjdk` (you can install Java 17 using 'jdk17-openjdk' or Java 21 using 'jdk21-openjdk')
-2. Install Maven: `sudo pacman -S maven`
-3. Install Git: `sudo pacman -S git`
+1. Install Java: (you can install Java 17 using `jdk17-openjdk` or Java 21 using `jdk21-openjdk`)
+```shell
+sudo pacman -S jdk25-openjdk
+```
+2. Install Maven:
+```shell
+sudo pacman -S maven
+```
+3. Install Git:
+```shell
+sudo pacman -S git
+```
 
 ### Windows
 
@@ -60,9 +114,18 @@ Unfortunately, you will not be able to use Homebrew on an Intel Mac anymore, but
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
     ```
-1. Install Java: `scoop install java/zulu25-jdk` (you can install Java 17 with `java/zulu17-jdk` or Java 21 with `java/zulu21-jdk`)
-2. Install Maven: `scoop install main/maven`
-6. Install Git: `scoop install main/git`
+1. Install Java: (you can install Java 17 with `java/zulu17-jdk` or Java 21 with `java/zulu21-jdk`)
+```shell
+scoop install java/zulu25-jdk
+```
+2. Install Maven:
+```shell
+scoop install main/maven
+```
+6. Install Git:
+```shell
+scoop install main/git
+```
 
 ## Running script
 
