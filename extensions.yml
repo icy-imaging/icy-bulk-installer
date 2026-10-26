@@ -56,3 +56,7 @@
   distribution: ''}
 - {enabled: true, groupId: fr.icy.extension, distribution: '', artifactId: fill-holes-in-roi,
   version: 2.0.0-a.8-SNAPSHOT}
+- {enabled: true, groupId: fr.icy.extension, distribution: '', artifactId: imglib2,
+  version: 2.0.0-a.8-SNAPSHOT}
+- {enabled: true, groupId: fr.icy.extension, distribution: '', artifactId: deep-icy,
+  version: 0.0.0-b.0-SNAPSHOT}

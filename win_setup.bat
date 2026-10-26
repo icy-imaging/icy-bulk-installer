@@ -158,6 +158,8 @@ rem    Format per line:  GROUPID;ARTIFACTID;VERSION;PACKAGING;CLASSIFIER;REPOSIT
     echo fr.icy.extension;track-processor-flow;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;mesh-3d-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
     echo fr.icy.extension;fill-holes-in-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;imglib2;8.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
+    echo fr.icy.extension;imglib2;0.0.0-b.0-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
 )
 
 rem --- Process every artifact via a single FOR loop -------------------------------
