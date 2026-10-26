@@ -3,41 +3,66 @@
 ## Requirements
 
 1. Java 17+ (25 recommended)
-2. Maven 3.9+
+2. Maven 3.10+
 3. Git
 
 ## Preparation
 
-### MacOS
-
-1. Install Homebrew, follow the instruction here: https://brew.sh
-2. Install Java: `brew install --cask zulu@25` (you can install Java 17 with 'zulu@17' or Java 21 with 'zulu@21')
-3. Install Maven: `brew install maven`
-4. Install Git: `brew install git`
-
-### Linux
-
-1. Install Java: `sudo apt install openjdk-25-jdk` (you can install Java 17 using 'openjdk-17-jdk' or Java 21 using 'openjdk-21-jdk')
-2. Install Maven: `sudo apt install maven`
-3. Install Git: `sudo apt install git`
-
-
-### Windows
-
-1. Install Java: https://www.azul.com/downloads/?version=java-25-lts&os=windows&package=jdk#zulu (choose the right architecture for your computer x64 or ARM64)
-2. Download Maven binary package: https://maven.apache.org/download.cgi#CurrentMaven
-3. Extract the tar.gz or zip previously downloaded
-4. Copy the extracted folder (should be named like 'apache-maven-X.X.X') in your C:\Program Files\
-5. Configure your PATH variable using this guide: https://stackoverflow.com/a/48411269 (MAVEN_HOME and M2_HOME are optional)
-6. Install Git: https://git-scm.com/install/windows
-
-## Testing requirements
+### Testing requirements
 
 In Terminal for Macos and Linux, in CMD / Powershell for Windows:
 
 1. Test Java: `java -version` (you must be on Java 17+ to run the script properly)
-2. Test Maven: `mvn -version` (if you are not on Maven 3.9+, the script will not work)
-3. Test Git: `git --version`
+2. Test Maven: `mvn -version` (if you are not on Maven 3.10+, the script will not work)
+3. Test Git: `git --version` (any git version will work)
+
+### MacOS (Apple Silicon)
+
+1. Install Homebrew: https://brew.sh
+    - run this command in your terminal: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+    - It will ask you to download and install `Xcode Command Line Tools` if it is not already the case, accept it
+2. Install Java: `brew install --cask zulu@25` (you can install Java 17 with 'zulu@17' or Java 21 with 'zulu@21')
+3. Install Maven: `brew install maven`
+4. Install Git: `brew install git`
+
+### MacOS (Intel)
+
+Unfortunately, you will not be able to use Homebrew on an Intel Mac anymore, but you can use [MacPorts](https://www.macports.org) instead.
+
+1. Install MacPorts: https://guide.macports.org/#installing
+    - Install Xcode from the Apple developer website: https://developer.apple.com/download/all/ (you will need an Apple account)
+    - Install Macports by downloading, then running the correct `.pkg` file based on your macOS version: https://guide.macports.org/#installing.macports.binary
+2. Install Java: `sudo port install openjdk25-zulu` (you can also install the 17 or the 21 version of the JDK)
+3. Install Maven: `sudo port install maven3`
+4. Install Git: `sudo port install git`
+
+### Linux
+
+#### Debian based Linux (Ubuntu)
+
+1. Update your package manager: `sudo apt update`
+    - It is also recommended to upgrade the already installed packages: `sudo apt upgrade`
+2. Install Java: `sudo apt install openjdk-25-jdk` (you can install Java 17 using 'openjdk-17-jdk' or Java 21 using 'openjdk-21-jdk')
+3. Install Maven: `sudo apt install maven`
+4. Install Git: `sudo apt install git`
+
+#### Arch based Linux (ArchLinux)
+
+1. Install Java: `sudo pacman -S jdk25-openjdk` (you can install Java 17 using 'jdk17-openjdk' or Java 21 using 'jdk21-openjdk')
+2. Install Maven: `sudo pacman -S maven`
+3. Install Git: `sudo pacman -S git`
+
+### Windows
+
+1. Install Scoop: https://scoop.sh
+    - Open PowerShell and type this command: 
+    ```shell
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    ```
+1. Install Java: `scoop install java/zulu25-jdk` (you can install Java 17 with `java/zulu17-jdk` or Java 21 with `java/zulu21-jdk`)
+2. Install Maven: `scoop install main/maven`
+6. Install Git: `scoop install main/git`
 
 ## Running script
 
@@ -85,8 +110,9 @@ Usage (in Terminal): ./unix_setup.sh [OPTIONS]
 -  -v, --verbose     Show logs from Git and Maven
 -  -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
 -  -u, --uninstall   Remove the install directory (cannot be used with --clean)
--  -r, --reset       Reset ICY's configuration directory (located at: $HOME/.icy)
--  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
+-  -r, --reset       Reset Icy's configuration directory (located at: $HOME/.icy)
+-  --run             Run Icy at the end of the script
+-  --run-only        Skip the installation and run Icy
 -  -h, --help        Show this help message
 
 ### Windows
@@ -97,7 +123,8 @@ Usage (in CMD / Powershell): .\win_setup.bat [OPTIONS]
 -  -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
 -  -u, --uninstall   Remove the install directory (cannot be used with --clean)
 -  -r, --reset       Reset ICY's configuration directory (located at: %USERPROFILE%/.icy)
--  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
+-  --run             Run Icy at the end of the script
+-  --run-only        Skip the installation and run Icy
 -  -h, --help        Show this help message
 
 ## How to update the script
