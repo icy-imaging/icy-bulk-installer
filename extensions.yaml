@@ -1,0 +1,25 @@
+extensions:
+  0:
+    dependencies: []
+    enabled: true
+    artifactId: kernel
+    version: 1.0.0-a.8-SNAPSHOT
+    groupId: fr.icy.extension
+    distribution: https://central.sonatype.com/repository/maven-snapshots/
+  2:
+    groupId: fr.icy.extension
+    distribution: https://central.sonatype.com/repository/maven-snapshots/
+    dependencies: []
+    enabled: true
+    artifactId: ezplug
+    version: 4.0.0-a.8-SNAPSHOT
+  3:
+    distribution: ''
+    dependencies:
+    - {artifactId: kernel, classifier: '', groupId: fr.icy.extension, version: 1.0.0-a.8-SNAPSHOT}
+    - {artifactId: ezplug, classifier: '', groupId: fr.icy.extension, version: 4.0.0-a.8-SNAPSHOT}
+    enabled: true
+    artifactId: protocols
+    version: 4.0.0-a.8-SNAPSHOT
+    groupId: fr.icy.extension
+version: 0

@@ -395,14 +395,14 @@ if ! $RUN_ONLY; then
     success_list=()
     failed_list=()
 
-    for entry in "${ARTIFACTS[@]}"; do
-        IFS='|' read -r groupId artifactId version packaging classifier repository <<< "$entry"
-        if process_artifact "$groupId" "$artifactId" "$version" "$packaging" "$classifier" "$repository"; then
-            success_list+=("mvn: $groupId:$artifactId $classifier")
-        else
-            failed_list+=("mvn: $groupId:$artifactId $classifier")
-        fi
-    done
+    #for entry in "${ARTIFACTS[@]}"; do
+    #    IFS='|' read -r groupId artifactId version packaging classifier repository <<< "$entry"
+    #    if process_artifact "$groupId" "$artifactId" "$version" "$packaging" "$classifier" "$repository"; then
+    #        success_list+=("mvn: $groupId:$artifactId $classifier")
+    #    else
+    #        failed_list+=("mvn: $groupId:$artifactId $classifier")
+    #    fi
+    #done
 
     for entry in "${REPOS[@]}"; do
         IFS='|' read -r url branch options <<< "$entry"
@@ -435,7 +435,7 @@ fi
 
 if $RUN; then
     mkdir -p "$ICY_DIR" || { err "Cannot create directory: $ICY_DIR"; exit 1; }
-    cp "./extensions.yml" "$ICY_DIR/extensions.yml"
+    cp "./extensions.yaml" "$ICY_DIR/extensions.yaml"
     echo
     java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/build/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
         err "Something went wrong while ICY was running."

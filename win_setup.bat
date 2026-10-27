@@ -163,9 +163,9 @@ rem    Format per line:  GROUPID;ARTIFACTID;VERSION;PACKAGING;CLASSIFIER;REPOSIT
 )
 
 rem --- Process every artifact via a single FOR loop -------------------------------
-for /f "usebackq tokens=1,2,3,4,5,6 delims=;" %%A in ("!ARTIFACTS_FILE!") do (
-    call :process_artifact "%%A" "%%B" "%%C" "%%D" "%%E" "%%F"
-)
+rem for /f "usebackq tokens=1,2,3,4,5,6 delims=;" %%A in ("!ARTIFACTS_FILE!") do (
+rem     call :process_artifact "%%A" "%%B" "%%C" "%%D" "%%E" "%%F"
+rem )
 del "!ARTIFACTS_FILE!" 2>nul
 
 rem --- Write repo list to temp file -------------------------------------------
