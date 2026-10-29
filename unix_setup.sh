@@ -338,6 +338,6 @@ if $RUN; then
         exit 1
     } &
     pid=$!
-    wheel $pid "ICY is running…"
+    wheel $pid "ICY is running. Please wait while Icy downloads and loads extensions."
     ok "Have a nice day!"
 fi
