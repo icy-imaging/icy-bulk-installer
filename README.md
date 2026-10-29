@@ -159,8 +159,8 @@ In CMD / Powershell from the same folder as the scripts:
 .\win_setup.bat --run
 ```
 
-> Note that the script will ask you permission to copy the `extensions.yml` present in this repository.
-> If this step does not work, you can just copy the `extensions.yml` file into the `.icy` folder located in your personal folder:
+> Note that the script will ask you permission to copy the `extensions.yaml` present in this repository.
+> If this step does not work, you can just copy the `extensions.yaml` file into the `.icy` folder located in your personal folder:
 > - `C:\Users\<your-username>\.icy\` in Windows
 > - `~/.icy/` in macOS or Linux
 
@@ -173,15 +173,14 @@ Usage (in Terminal):
 ./unix_setup.sh [OPTIONS]
 ```
 
-| Option (short)    | Option (long) | Description                                                                           |
-| :---------------- | :------------ | :------------------------------------------------------------------------------------ |
-| -v                | --verbose     | Show logs from Git and Maven                                                          |
-| -c                | --clean       | Remove the install directory and start from scratch (cannot be used with --uninstall) |
-| -u                | --uninstall   | Remove the install directory (cannot be used with --clean)                            |
-| -r                | --reset       | Reset Icy's configuration directory (located at: $HOME/.icy)                          |
-|                   | --run         | Run Icy at the end of the script                                                      |
-|                   | --run-only    | Skip the installation and run Icy (replace --run option)                              |
-| -h                | --help        | Show this help message                                                                |
+| Option (short)    | Option (long) | Description                                               |
+| :---------------- | :------------ | :-------------------------------------------------------- |
+| -v                | --verbose     | Show logs from Git and Maven                              |
+| -c                | --clean       | Remove the install directory and start from scratch       |
+| -r                | --reset       | Reset Icy's configuration directory (located at: ~/.icy)  |
+|                   | --run         | Run Icy at the end of the script                          |
+|                   | --run-only    | Skip the installation and run Icy (replace --run option)  |
+| -h                | --help        | Show this help message                                    |
 
 ### Windows
 
@@ -190,15 +189,14 @@ Usage (in CMD / Powershell):
 .\win_setup.bat [OPTIONS]
 ```
 
-| Option (short)    | Option (long) | Description                                                                           |
-| :---------------- | :------------ | :------------------------------------------------------------------------------------ |
-| -v                | --verbose     | Show logs from Git and Maven                                                          |
-| -c                | --clean       | Remove the install directory and start from scratch (cannot be used with --uninstall) |
-| -u                | --uninstall   | Remove the install directory (cannot be used with --clean)                            |
-| -r                | --reset       | Reset ICY's configuration directory (located at: %USERPROFILE%/.icy)                  |
-|                   | --run         | Run Icy at the end of the script                                                      |
-|                   | --run-only    | Skip the installation and run Icy (replace --run option)                              |
-| -h                | --help        | Show this help message                                                                |
+| Option (short)    | Option (long) | Description                                                                       |
+| :---------------- | :------------ | :-------------------------------------------------------------------------------- |
+| -v                | --verbose     | Show logs from Git and Maven                                                      |
+| -c                | --clean       | Remove the install directory and start from scratch                               |
+| -r                | --reset       | Reset ICY's configuration directory (located at: C:\Users\<your-username>\.icy)   |
+|                   | --run         | Run Icy at the end of the script                                                  |
+|                   | --run-only    | Skip the installation and run Icy (replace --run option)                          |
+| -h                | --help        | Show this help message                                                            |
 
 ## How to update the script
 

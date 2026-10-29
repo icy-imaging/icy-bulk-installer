@@ -2,13 +2,12 @@
 setlocal enabledelayedexpansion
 
 rem ============================================================================
-rem setup_win.bat - Installer for ICY (Windows 10+) v1.0.0 alpha 8 (SNAPSHOT)
+rem setup_win.bat - Installer for Icy (Windows 10+) v1.0.0 alpha 8 (SNAPSHOT)
 rem ============================================================================
 
 set "INSTALL_DIR=%USERPROFILE%\icy-projects"
 set "ICY_CONFIG=%USERPROFILE%\.icy"
 set "REPO_FILE=%TEMP%\icy_repos_%RANDOM%.txt"
-set "ARTIFACTS_FILE=%TEMP%\icy_artifacts_%RANDOM%.txt"
 set "ICY_EXTENSIONS=%USERPROFILE%\.icy\extensions"
 
 set VERBOSE=0
@@ -28,8 +27,6 @@ if /i "%~1"=="-v"          ( set VERBOSE=1& shift& goto :parse_args )
 if /i "%~1"=="--verbose"   ( set VERBOSE=1& shift& goto :parse_args )
 if /i "%~1"=="-c"          ( set FORCE_CLEAN=1& shift& goto :parse_args )
 if /i "%~1"=="--clean"     ( set FORCE_CLEAN=1& shift& goto :parse_args )
-if /i "%~1"=="-u"          ( set UNINSTALL=1& shift& goto :parse_args )
-if /i "%~1"=="--uninstall" ( set UNINSTALL=1& shift& goto :parse_args )
 if /i "%~1"=="-r"          ( set RESET=1& shift& goto :parse_args )
 if /i "%~1"=="--reset"     ( set RESET=1& shift& goto :parse_args )
 if /i "%~1"=="--run-only"  ( set RUN_ONLY=1& set RUN=1& shift& goto :parse_args )
@@ -41,26 +38,22 @@ echo.
 goto :usage
 
 :args_done
-if !FORCE_CLEAN! equ 1 if !UNINSTALL! equ 1 (
-    echo ERROR: Cannot use both --clean and --uninstall.
-    exit /b 1
-)
-if !UNINSTALL! equ 1 if !RUN! equ 1 (
-    echo ERROR: Cannot use both --run and --uninstall.
+if !FORCE_CLEAN! equ 1 if !RUN_ONLY! equ 1 (
+    echo ERROR: Cannot use both --run-only and -c/--clean.
     exit /b 1
 )
 
 echo ===========================================================
-echo   ICY Repo Manager - Windows v1.0.0 alpha 8 (SNAPSHOT)
+echo   Icy Repo Manager - Windows v1.0.0 alpha 8 (SNAPSHOT)
 echo ===========================================================
 echo   Install dir : !INSTALL_DIR!
-echo   ICY config  : !ICY_CONFIG!
+echo   Icy config  : !ICY_CONFIG!
 echo.
 
 rem --- Reset ------------------------------------------------------------------
 if !RESET! equ 1 (
     echo ===========================================================
-    echo   Reset ICY Configuration
+    echo   Reset Icy Configuration
     echo ===========================================================
     echo   WARNING: This will erase !ICY_CONFIG! including VTK.
     echo   This action cannot be undone.
@@ -77,20 +70,6 @@ if !RESET! equ 1 (
         echo   [INFO] Reset canceled.
     )
     echo.
-)
-
-rem --- Uninstall --------------------------------------------------------------
-if !UNINSTALL! equ 1 (
-    echo ===========================================================
-    echo   Uninstall
-    echo ===========================================================
-    if exist "!INSTALL_DIR!" (
-        rmdir /s /q "!INSTALL_DIR!"
-        echo   [OK] Projects directory removed.
-    ) else (
-        echo   [INFO] Projects directory not found.
-    )
-    exit /b 0
 )
 
 rem --- Check requirements -----------------------------------------------------
@@ -115,59 +94,6 @@ if !FORCE_CLEAN! equ 1 (
 rem --- Create install directory -----------------------------------------------
 if not exist "!INSTALL_DIR!" mkdir "!INSTALL_DIR!"
 
-rem --- Write artifact list to temp file -------------------------------------------
-rem    Format per line:  GROUPID;ARTIFACTID;VERSION;PACKAGING;CLASSIFIER;REPOSITORY   (CLASSIFIER = NONE when empty)
-> "!ARTIFACTS_FILE!" (
-    echo fr.icy;pom-icy;3.0.0-a.8-SNAPSHOT;pom;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.maven;mojo-maven-plugin;1.0.0-a.8-SNAPSHOT;maven-plugin;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.maven;enforcer-maven-plugin;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;logging;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;task;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-linux-amd64;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-windows-amd64;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-macos-arm64;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.shared;vtk;1.0.0-a.8-SNAPSHOT;jar;natives-macos-amd64;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy;icy;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;kernel;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;ezplug;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;protocols;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;scale-bar;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;ruler-helper;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;rotation-3d;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;elevation-map;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;orthoviewer;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;blockvars;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;channel-montage;3.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;montage-2d;1.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;spot-detection-utilities;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;quickhull;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;connected-components;5.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;roi-pool;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;roi-tagger;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;spot-detector;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;label-extractor;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;thresholder;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-manager;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;linear-programming;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;spot-tracking;4.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-processor-time-clip;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-motion-profiler;5.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-processor-roi-gate;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-processor-color;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;track-processor-flow;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;mesh-3d-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;fill-holes-in-roi;2.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;imglib2;8.0.0-a.8-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-    echo fr.icy.extension;imglib2;0.0.0-b.0-SNAPSHOT;jar;NONE;https://central.sonatype.com/repository/maven-snapshots/
-)
-
-rem --- Process every artifact via a single FOR loop -------------------------------
-rem for /f "usebackq tokens=1,2,3,4,5,6 delims=;" %%A in ("!ARTIFACTS_FILE!") do (
-rem     call :process_artifact "%%A" "%%B" "%%C" "%%D" "%%E" "%%F"
-rem )
-del "!ARTIFACTS_FILE!" 2>nul
-
 rem --- Write repo list to temp file -------------------------------------------
 rem    Format per line:  URL;BRANCH;OPTIONS   (OPTIONS = NONE when empty)
 > "!REPO_FILE!" (
@@ -191,10 +117,9 @@ echo Usage: %~nx0 [OPTIONS]
 echo.
 echo   -v, --verbose     Show output from Git and Maven
 echo   -c, --clean       Remove install directory and rebuild from scratch
-echo   -u, --uninstall   Remove install directory and exit
-echo   -r, --reset       Reset ICY configuration (%USERPROFILE%\.icy)
-echo   --run             Run ICY after building
-echo   --run-only        Run ICY without building
+echo   -r, --reset       Reset Icy configuration (%USERPROFILE%\.icy)
+echo   --run             Run Icy after building
+echo   --run-only        Run Icy without building
 echo   -h, --help        Show this help message
 exit /b 0
 
@@ -397,12 +322,12 @@ echo.
 :run_icy
 if !RUN! equ 1 (
     echo ===========================================================
-    echo   Running ICY
+    echo   Running Icy
     echo ===========================================================
     if not exist "!ICY_CONFIG!" mkdir "!ICY_CONFIG!"
-    xcopy ".\extensions.yml" "!ICY_CONFIG!\extensions.yml"
-    start "ICY" java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
-    echo   [OK] ICY launched. Have a nice day!
+    xcopy /Y ".\extensions.yml" "!ICY_CONFIG!\extensions.yml"
+    start "Icy" java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "!INSTALL_DIR!\icy\build\icy\icy.jar"
+    echo   [OK] Icy launched. Have a nice day!
 )
 
 exit /b 0

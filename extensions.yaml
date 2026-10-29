@@ -1,25 +1,34 @@
 extensions:
-  0:
-    dependencies: []
+  1:
+    distribution: {id: central.snapshots, url: 'https://central.sonatype.com/repository/maven-snapshots/'}
+    groupId: fr.icy.extension
     enabled: true
-    artifactId: kernel
     version: 1.0.0-a.8-SNAPSHOT
-    groupId: fr.icy.extension
-    distribution: https://central.sonatype.com/repository/maven-snapshots/
+    artifactId: kernel
   2:
-    groupId: fr.icy.extension
-    distribution: https://central.sonatype.com/repository/maven-snapshots/
-    dependencies: []
     enabled: true
-    artifactId: ezplug
     version: 4.0.0-a.8-SNAPSHOT
+    artifactId: ezplug
+    distribution: {url: 'https://central.sonatype.com/repository/maven-snapshots/',
+      id: central.snapshots}
+    groupId: fr.icy.extension
   3:
-    distribution: ''
-    dependencies:
-    - {artifactId: kernel, classifier: '', groupId: fr.icy.extension, version: 1.0.0-a.8-SNAPSHOT}
-    - {artifactId: ezplug, classifier: '', groupId: fr.icy.extension, version: 4.0.0-a.8-SNAPSHOT}
-    enabled: true
+    distribution: {url: 'https://central.sonatype.com/repository/maven-snapshots/',
+      id: central.snapshots}
     artifactId: protocols
     version: 4.0.0-a.8-SNAPSHOT
+    enabled: true
     groupId: fr.icy.extension
+  4:
+    groupId: fr.icy.extension
+    distribution: {id: central.snapshots, url: 'https://central.sonatype.com/repository/maven-snapshots/'}
+    artifactId: imglib2
+    version: 8.0.0-a.8-SNAPSHOT
+    enabled: true
+  5:
+    groupId: fr.icy.extension
+    distribution: {id: central.snapshots, url: 'https://central.sonatype.com/repository/maven-snapshots/'}
+    artifactId: deep-icy
+    version: 0.0.0-b.0-SNAPSHOT
+    enabled: true
 version: 0

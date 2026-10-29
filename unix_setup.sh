@@ -3,12 +3,12 @@
 # unix_setup.sh — Installer for ICY - Unix (MacOS & Linux) 1.0.0 alpha 8 (SNAPSHOT)
 # =============================================================================
 # Usage: ./unix_setup.sh [OPTIONS]
-#   -v, --verbose     Show logs from Git and Maven
-#   -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
-#   -u, --uninstall   Remove the install directory (cannot be used with --clean)
-#   -r, --reset       Reset ICY's configuration directory (located at: $HOME/.icy)
-#   --run(-only)      Run ICY at the end (cannot be used with --uninstall)
-#   -h, --help        Show this help message
+#   -v, --verbose       Show logs from Git and Maven
+#   -c, --clean         Remove the icy-projects directory and start from scratch
+#   -r, --reset         Reset Icy's configuration directory (located at: $HOME/.icy)
+#   --run               Run Icy at the end
+#   --run-only          Run Icy without compiling it, replace the --run option
+#   -h, --help          Show this help message
 # =============================================================================
 
 # -----------------------------------------------------------------------------
@@ -22,59 +22,6 @@ ICY_DIR="$HOME/.icy/"
 #   MAVEN_OPTIONS – optional
 REPOS=(
     "https://gitlab.pasteur.fr/bia/icy/icy.git|dev|"
-)
-
-# Format: "GROUP_ID|ARTIFACT_ID|VERSION|PACKAGING|CLASSIFIER|REPOSITORY"
-#   PACKAGING   – optional; leave empty to use default packaging (jar)
-#   CLASSIFIER  – optional
-ARTIFACTS=(
-    "fr.icy|pom-icy|3.0.0-a.8-SNAPSHOT|pom||https://central.sonatype.com/repository/maven-snapshots/"
-
-    "fr.icy.maven|mojo-maven-plugin|1.0.0-a.8-SNAPSHOT|maven-plugin||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.maven|enforcer-maven-plugin|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-
-    "fr.icy.shared|logging|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|task|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|vtk|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|vtk|1.0.0-a.8-SNAPSHOT|jar|natives-linux-amd64|https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|vtk|1.0.0-a.8-SNAPSHOT|jar|natives-windows-amd64|https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|vtk|1.0.0-a.8-SNAPSHOT|jar|natives-macos-arm64|https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.shared|vtk|1.0.0-a.8-SNAPSHOT|jar|natives-macos-amd64|https://central.sonatype.com/repository/maven-snapshots/"
-
-    "fr.icy|icy|3.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-
-    "fr.icy.extension|kernel|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|ezplug|4.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|protocols|4.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|scale-bar|4.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|ruler-helper|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|rotation-3d|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|elevation-map|3.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|orthoviewer|3.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|blockvars|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|channel-montage|3.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|montage-2d|1.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|spot-detection-utilities|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|quickhull|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|connected-components|5.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|roi-pool|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|roi-tagger|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|spot-detector|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|label-extractor|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|thresholder|4.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-manager|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|linear-programming|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|spot-tracking|4.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-processor-time-clip|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-motion-profiler|5.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-processor-roi-gate|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-processor-color|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|track-processor-flow|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|mesh-3d-roi|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|fill-holes-in-roi|2.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-
-    "fr.icy.extension|imglib2|8.0.0-a.8-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
-    "fr.icy.extension|deep-icy|0.0.0-b.0-SNAPSHOT|jar||https://central.sonatype.com/repository/maven-snapshots/"
 )
 
 # -- Colours ------------------------------------------------------------------
@@ -96,7 +43,6 @@ NC='\033[0m'
 # -- Arguments ----------------------------------------------------------------
 VERBOSE=false
 FORCE_CLEAN=false
-UNINSTALL=false
 RESET=false
 RUN_ONLY=false
 RUN=false
@@ -135,10 +81,10 @@ Usage: ./$(basename "$0") [OPTIONS]
 
 Options:
   -v, --verbose     Show logs from Git and Maven
-  -c, --clean       Remove the install directory and start from scratch (cannot be used with --uninstall)
-  -u, --uninstall   Remove the install directory (cannot be used with --clean)
+  -c, --clean       Remove the icy-projects directory and start from scratch
   -r, --reset       Reset ICY's configuration directory (located at: $HOME/.icy)
-  --run(-only)      Run ICY at the end (cannot be used with --uninstall)
+  --run             Run ICY at the end (cannot be used with --uninstall)
+  --run-only        Run Icy without compiling it, replace the --run option
   -h, --help        Show this help message
 
 EOF
@@ -150,7 +96,6 @@ parse_args() {
         case "$1" in
             -v|--verbose)   VERBOSE=true ;;
             -c|--clean)     FORCE_CLEAN=true ;;
-            -u|--uninstall) UNINSTALL=true ;;
             -r|--reset)     RESET=true ;;
             --run-only)     RUN_ONLY=true; RUN=true ;;
             --run)          RUN=true ;;
@@ -160,14 +105,8 @@ parse_args() {
         shift
     done
 
-    if $FORCE_CLEAN && $UNINSTALL; then
-        printf "${RED}Cannot use both -c/--clean and -u/--uninstall${NC}\r\n"
-        echo
-        usage
-    fi
-
-    if $UNINSTALL && $RUN; then
-        printf "${RED}Cannot use both --run and -u/--uninstall${NC}\r\n"
+    if $FORCE_CLEAN && $RUN_ONLY; then
+        printf "${RED}Cannot use both --run-only and -c/--clean${NC}\r\n"
         echo
         usage
     fi
@@ -216,30 +155,6 @@ check_requirements() {
         exit 1
     fi
 
-}
-
-process_artifact() {
-    local groupId="$1" artifactId="$2" version="$3" packaging="$4" classifier="$5" repository="$6"
-
-    print_banner "[$artifactId]"
-    info "GroupId       : $groupId"
-    info "ArtifactId    : $artifactId"
-    info "Version       : $version"
-    info "Packaging     : $packaging"
-    info "Classifier    : $classifier"
-    info "Repository    : $repository"
-
-    if [ -n "$classifier" ]; then
-        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -Dclassifier="$classifier" -DremoteRepositories="$repository" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
-        pid=$!
-    else
-        mvn dependency:get -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version" -Dpackaging="$packaging" -DremoteRepositories="$repository" >> /dev/null 2>&1 || { err "Cannot download artifact $artifact from repository $remote"; return 1; } &
-        pid=$!
-    fi
-    wheel $pid "Downloading artifact"
-    ok "Downloaded successfully"
-
-    return 0;
 }
 
 # -- Per-repo processing ------------------------------------------------------
@@ -345,16 +260,15 @@ process_repo() {
 # -- Main ---------------------------------------------------------------------
 parse_args "$@"
 
-print_banner "ICY Installer — Unix (MacOS & Linux) v1.0.0 alpha 8 (SNAPSHOT)"
+print_banner "Icy Installer — Unix (MacOS & Linux) v1.0.0 alpha 8 (SNAPSHOT)"
 info "Install dir : $INSTALL_DIR"
-info "ICY config  : $ICY_DIR"
-if $RESET; then warn "Reset ICY   : true"; fi
-if $UNINSTALL; then warn "Uninstall   : true"; fi
+info "Icy config  : $ICY_DIR"
+if $RESET; then warn "Reset Icy   : true"; fi
 if $FORCE_CLEAN; then warn "Force clean : $FORCE_CLEAN"; fi
 
 if $RESET; then
-    print_banner "Reset ICY (removing $ICY_DIR)"
-    printf "${RED}  Are you sure you want to reset your ICY configuration?${NC}\r\n"
+    print_banner "Reset Icy (removing $ICY_DIR)"
+    printf "${RED}  Are you sure you want to reset your Icy configuration?${NC}\r\n"
     printf "${RED}  It will also erase VTK.${NC}\r\n"
     printf "${RED}${BOLD}  This action cannot be undone!${NC}\r\n"
     read -p "  (Y|N)? " confirm
@@ -363,19 +277,10 @@ if $RESET; then
         rm -rf "$ICY_DIR" || { err "Failed to remove $ICY_DIR"; exit 1; } &
         pid=$1
         wheel $pid "Removing ICY directory…"
-        ok "ICY directory removed successfully"
+        ok "Icy directory removed successfully"
     else
         info "Reset canceled"
     fi
-fi
-
-if $UNINSTALL; then
-    print_banner "Purge projects directory"
-    rm -rf "$INSTALL_DIR" || { err "Failed to remove $INSTALL_DIR"; exit 1; } &
-    pid=$!
-    wheel $pid "Removing projects directory…"
-    ok "Projects directory removed successfully"
-    exit 0
 fi
 
 check_requirements
@@ -394,15 +299,6 @@ if ! $RUN_ONLY; then
 
     success_list=()
     failed_list=()
-
-    #for entry in "${ARTIFACTS[@]}"; do
-    #    IFS='|' read -r groupId artifactId version packaging classifier repository <<< "$entry"
-    #    if process_artifact "$groupId" "$artifactId" "$version" "$packaging" "$classifier" "$repository"; then
-    #        success_list+=("mvn: $groupId:$artifactId $classifier")
-    #    else
-    #        failed_list+=("mvn: $groupId:$artifactId $classifier")
-    #    fi
-    #done
 
     for entry in "${REPOS[@]}"; do
         IFS='|' read -r url branch options <<< "$entry"
@@ -429,7 +325,7 @@ if ! $RUN_ONLY; then
     fi
 
     echo
-    ok "All projects were downloaded (mvn) or built (git) successfully!"
+    ok "All projects were built successfully!"
 
 fi
 
