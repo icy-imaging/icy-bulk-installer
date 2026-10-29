@@ -333,7 +333,7 @@ if $RUN; then
     mkdir -p "$ICY_DIR" || { err "Cannot create directory: $ICY_DIR"; exit 1; }
     cp "./extensions.yaml" "$ICY_DIR/extensions.yaml"
     echo
-    java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/build/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
+    java -Xms6g -Xmx12g --enable-native-access=ALL-UNNAMED -jar "$INSTALL_DIR/icy/target/icy/icy.jar" > $INSTALL_DIR/icy.log 2>&1 || {
         err "Something went wrong while ICY was running."
         exit 1
     } &
