@@ -116,6 +116,7 @@ sudo pacman -S git
     ```
 1. Install Java: (you can install Java 17 with `java/zulu17-jdk` or Java 21 with `java/zulu21-jdk`)
 ```shell
+scoop bucket add java
 scoop install java/zulu25-jdk
 ```
 2. Install Maven:
